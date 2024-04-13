@@ -7,3 +7,4 @@
     apt:
       name: nginx
       state: latest
+  - name 
