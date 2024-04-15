@@ -1,4 +1,3 @@
----
 - name: Install and start Ubuntu services
   hosts: ubuntu
   remote_user: ubuntu
@@ -10,10 +9,11 @@
         state: present
       loop:
         - nginx
-        - apache2
         - mysql-server
         - php
+        - php-mysql  # Install PHP module for MySQL connectivity
         - redis-server
+        - vsftpd  # FTP server package
 
     - name: Start services
       systemd:
@@ -22,7 +22,6 @@
         enabled: yes
       loop:
         - nginx
-        - apache2
         - mysql
-        - php
+        - vsftpd
         - redis-server
