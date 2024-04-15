@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  remote_user:q: apple
+  remote_user: apple
   tasks:
     - name: Update variable in text.sh
       lineinfile:
