@@ -1,5 +1,5 @@
 ---
-- name: Install and start services playbook
+- name: Install and start Ubuntu services
   hosts: ubuntu
   remote_user: ubuntu
   become: yes
@@ -13,7 +13,7 @@
         - apache2
         - mysql-server
         - php
-        - git
+        - redis-server
 
     - name: Start services
       systemd:
@@ -24,3 +24,5 @@
         - nginx
         - apache2
         - mysql
+        - php
+        - redis-server
