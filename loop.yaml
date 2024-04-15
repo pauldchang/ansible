@@ -9,20 +9,20 @@
         name: "{{ item }}"
         state: present
       loop:
-        - focal
-        - jammy
-        - kinetic
-        - lunar
-        - mantic
+        - nginx
+        - apache2
+        - mysql-server
+        - php
+        - git
 
     - name: Start services
       systemd:
-        name: "sudo systemctl start{{ item }}"
+        name: "{{ item }}"
         state: started
         enabled: yes
       loop:
-        - focal
-        - jammy
-        - kinetic
-        - lunar
-        - mantic
+        - nginx
+        - apache2
+        - mysql
+        - php
+        - git
