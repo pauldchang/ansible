@@ -1,27 +1,27 @@
 ---
-- hosts: all
-  remote_user: ec2-user
-  becomeL yes
+- hosts: ubunut
+  remote_user: ubuntu
+  become: yes
   tasks:
     - name: Copy file
       ansible.builtin.copy:
         src: /tmp/test.test
         dest: ~/
-    - name: install apache server # name of the play
+    - name: install nginx # name of the play
       yum:
-        name: httpd
+        name: nginx
         state: latest
         update_cache: yes
-    - name: start and enable autostart of apache server
+    - name: start and enable autostart of nginx server
       systemd:
-        name: httpd
+        name: nginx
         state: started
         enabled: yes
-    - name: Status of httpd
+    - name: Status of nginx
       ansible.builtin.service:
-        name: httpd
+        name: nginx
         state: reloaded
-    - name: Start service httpd, if not started
+    - name: Start service nginx, if not started
       ansible.builtin.service:
-        name: httpd
+        name: nginx
         state: started
