@@ -1,0 +1,27 @@
+---
+- name: Install and start services playbook
+  hosts: ubuntu
+  become: yes
+  tasks:
+    - name: Install Ubuntu packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - focal
+        - jammy
+        - kinetic
+        - lunar
+        - mantic
+
+    - name: Start services
+      systemd:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop:
+        - focal
+        - jammy
+        - kinetic
+        - lunar
+        - mantic
