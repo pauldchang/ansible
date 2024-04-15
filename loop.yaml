@@ -14,14 +14,14 @@
         - lunar
         - mantic
 
-    - name: Start services
-      systemd:
-        name: "{{ item }}"
-        state: started
-        enabled: yes
-      loop:
-        - focal
-        - jammy
-        - kinetic
-        - lunar
-        - mantic
+- name: Start services
+  systemd:
+    name: "service_name_for_{{ item }}"  
+    state: started
+    enabled: yes
+  loop:
+    - focal
+    - jammy
+    - kinetic
+    - lunar
+    - mantic
