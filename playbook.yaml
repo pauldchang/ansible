@@ -1,5 +1,5 @@
 ---
-- hosts: ubunut
+- hosts: ubuntu
   remote_user: ubuntu
   become: yes
   tasks:
