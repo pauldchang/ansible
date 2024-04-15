@@ -1,25 +1,7 @@
 ---
-- name: Create and copy text file
-  hosts: ubuntu
-  remote_user: ubuntu 
-  become: yes
-  tasks:
-    - name: Create text file
-      ansible.builtin.copy:
-        dest: "/tmp/text.sh"
-        content: |
-          #!/bin/bash
-          echo "tuncay" >> /tmp/text.sh
-          echo "sergey" >> /tmp/text.sh
-          echo "paul" >> /tmp/text.sh
-          echo "algreim" >> /tmp/text.sh
-          echo "nogar" >> /tmp/text.sh
-          echo "diana" >> /tmp/text.sh
-          echo "julia" >> /tmp/text.sh
-
-  handlers:
-    - name: Replace julia with yulia
-      ansible.builtin.replace:
-        path: /tmp/text.sh
-        regexp: 'julia'
-        replace: 'yulia'
+- name: Update file
+  lineinfile:
+    path: ~/tmp/
+    line: julia
+  notify:
+    - change_variable "yulia"
