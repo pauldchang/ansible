@@ -6,9 +6,9 @@
     - name: Install Ubuntu packages
       apt:
         name: "{{ item }}"
-        state: present
+        state: latest
       loop:
-        - nginx
+        - apache2
         - mysql-server
         - php
         - php-mysql  # Install PHP module for MySQL connectivity
@@ -21,7 +21,8 @@
         state: started
         enabled: yes
       loop:
-        - nginx
+        - apache2
         - mysql
         - vsftpd
         - redis-server
+        - vsftpd
