@@ -1,6 +1,7 @@
 ---
 - name: Install and start services playbook
   hosts: ubuntu
+  remote_user: ubuntu
   become: yes
   tasks:
     - name: Install Ubuntu packages
@@ -16,7 +17,7 @@
 
     - name: Start services
       systemd:
-        name: "Start {{ item }}"
+        name: "sudo systemctl start{{ item }}"
         state: started
         enabled: yes
       loop:
