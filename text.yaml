@@ -1,7 +1,14 @@
 ---
-- name: Update file
-  lineinfile:
-    path: ~/tmp/
-    line: julia
-  notify:
-    - change_variable "yulia"
+- hosts: localhost
+  remote_user: apple
+  tasks:
+    - name: Update variable in text.sh
+      lineinfile:
+        path: /tmp/test.sh  # Corrected path
+        regexp: 'diana julia'  # Update the regexp to match the line with your variable
+        line: 'diana yulia'  # Replace 'new_value' with the new value you want
+      notify: restart_service
+
+  handlers:
+    - name: restart_service
+      command: /tmp/test.sh  # Corrected path
