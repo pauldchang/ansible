@@ -16,7 +16,7 @@
 
     - name: Start services
       systemd:
-        name: "Service_name_for_{{ item }}"
+        name: "Start {{ item }}"
         state: started
         enabled: yes
       loop:
