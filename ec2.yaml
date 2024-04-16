@@ -2,15 +2,28 @@
 - hosts: localhost
   become: false
   tasks:
-  - name: Spot Request Creation with more options
-    amazon.aws.ec2_spot_instance:
-      launch_specification:
-        image_id: ami-0900fe555666598a2
-        key_name: SSH-MAC
-        instance_type: t2.micro
-        block_device_mappings:
-          - device_name: /dev/sdb
-            ebs:
-              delete_on_termination: true
-              volume_type: gp3
-              volume_size: 5
+    - name: Spot Request Creation with more options
+      amazon.aws.ec2_spot_instance:
+        launch_specification:
+          image_id: ami-0900fe555666598a2
+          key_name: SSH-MAC
+          instance_type: t2.micro
+          security_group_ids: sg-0884719d5ecbb2b29
+          block_device_mappings:
+            - device_name: /dev/sdb
+              ebs:
+                delete_on_termination: true
+                volume_type: gp3
+                volume_size: 5
+      register: ec2_instance
+
+- name: Spot Request Termination
+  amazon.aws.ec2_spot_instance:
+    spot_instance_request_ids: ['sir-s6kevndq']
+    state: absent
+
+  handlers:
+    - name: Terminate the Spot Instance
+      terminate_instances: 
+        instance_id: "{{ i-02bf132c8fb3998b0 }}"
+        state: absent
