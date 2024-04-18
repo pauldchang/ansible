@@ -1,13 +1,13 @@
 ---
 - name: Create Users & Groups
-  hosts: amazon-linux
-  remote_user: ec2-user
+  hosts: ubuntu
+  remote_user: ubuntu
   become: yes
   tasks:
     - name: Create group
       group:
         name: dev
-        state: present
+        state:  present
 
     - name: Create Users Task
       user:
@@ -18,3 +18,26 @@
       loop:
         - jake
         - tom
+        - algreim
+
+        
+- name: Create Users & Groups
+  hosts: amazon-linux
+  remote_user: ec2-user
+  become: yes
+  tasks:
+    - name: Create group
+      group:
+        name: dev
+        state:  present
+
+    - name: Create Users Task
+      user:
+        name: "{{ item }}"
+        state: present
+        shell: /bin/bash
+        group: dev
+      loop:
+        - jake
+        - tom
+        - algreim
