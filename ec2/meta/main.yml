@@ -1,7 +1,7 @@
 galaxy_info:
-  author: your name
-  description: your role description
-  company: your company (optional)
+  author: Paul
+  description: EC2
+  company: Techtorial
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
