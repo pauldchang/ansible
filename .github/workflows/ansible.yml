@@ -38,14 +38,14 @@ jobs:
       - name: Add SSH key
         run: |
           mkdir -p ~/.ssh
-          # Replace example.com with the hostname of the machine you're SSH-ing into
+          # Replace 18.220.23.33 with the hostname of the machine you're SSH-ing into
           ssh-keyscan 18.220.23.33 >> ~/.ssh/known_hosts
           # DOKKU_SSH_KEY is the name of the repository secret
-          echo "${{ secrets.DOKKU_SSH_KEY }}" > ~/.ssh/github_actions
+          echo "${{ secrets.UBUNTU_SSH_KEY }}" > ~/.ssh/github_actions
           chmod 600 ~/.ssh/github_actions
-          eval `ssh-agent`
+          eval $(ssh-agent)
           ssh-add ~/.ssh/github_actions
-        shell: bash
+        shell: /bin/bash -e -l -c {0}
         env:
           pythonLocation: /opt/hostedtoolcache/Python/3.8.18/x64
           LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.8.18/x64/lib
