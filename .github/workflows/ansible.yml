@@ -10,31 +10,50 @@ jobs:
     runs-on: ubuntu-latest  # You can choose a different operating system if needed
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8  # Choose a Python version compatible with Ansible
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8  # Choose a Python version compatible with Ansible
     
-    - name: Clone ansible
-      uses: GuillaumeFalourd/clone-github-repo-action@v2.3
-      with:
-        depth: 1
-        branch: 'main'
-        owner: 'pauldchang'
-        repository: 'ansible'
+      - name: Clone ansible
+        uses: GuillaumeFalourd/clone-github-repo-action@v2.3
+        with:
+          depth: 1
+          branch: 'main'
+          owner: 'pauldchang'
+          repository: 'ansible'
     
-    - name: Access cloned repo
-      run: |
-         cd ansible
-         ls -la
+      - name: Access cloned repo
+        run: |
+          cd ansible
+          ls -la
 
-    - name: Install Ansible
-      run: |
-        pip install ansible
+      - name: Install Ansible
+        run: |
+          pip install ansible
 
-    - name: Run Ansible Playbook
-      run: |
-        ansible-playbook -i inventory ubuntu.yaml
+      - name: Add SSH key
+        run: |
+          mkdir -p ~/.ssh
+          # Replace example.com with the hostname of the machine you're SSH-ing into
+          ssh-keyscan example.com >> ~/.ssh/known_hosts
+          # DOKKU_SSH_KEY is the name of the repository secret
+          echo "${{ secrets.DOKKU_SSH_KEY }}" > ~/.ssh/github_actions
+          chmod 600 ~/.ssh/github_actions
+          eval `ssh-agent -s`
+          ssh-add ~/.ssh/github_actions
+  
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build and deploy
+        run: |
+          # Add your build and deploy commands here
+
+      - name: Run Ansible Playbook
+        run: |
+          # Adjust the playbook path and inventory file as needed
+          ansible-playbook -i inventory ubuntu.yaml
