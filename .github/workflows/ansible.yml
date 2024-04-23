@@ -39,12 +39,16 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           # Replace example.com with the hostname of the machine you're SSH-ing into
-          ssh-keyscan example.com >> ~/.ssh/known_hosts
+          ssh-keyscan 18.220.23.33 >> ~/.ssh/known_hosts
           # DOKKU_SSH_KEY is the name of the repository secret
           echo "${{ secrets.DOKKU_SSH_KEY }}" > ~/.ssh/github_actions
           chmod 600 ~/.ssh/github_actions
-          eval `ssh-agent -s`
+          eval `ssh-agent`
           ssh-add ~/.ssh/github_actions
+        shell: bash
+        env:
+          pythonLocation: /opt/hostedtoolcache/Python/3.8.18/x64
+          LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.8.18/x64/lib
   
       - name: Install dependencies
         run: yarn
