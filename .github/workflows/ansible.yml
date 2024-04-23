@@ -39,8 +39,8 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           # Replace 18.220.23.33 with the hostname of the machine you're SSH-ing into
-          ssh-keyscan 18.220.23.33 >> ~/.ssh/known_hosts
-          # DOKKU_SSH_KEY is the name of the repository secret
+          ssh-keyscan ec2-18-220-23-33.us-east-2.compute.amazonaws.com >> ~/.ssh/known_hosts
+          # UBUNTU_SSH_KEY is the name of the repository secret
           echo "${{ secrets.UBUNTU_SSH_KEY }}" > ~/.ssh/github_actions
           chmod 600 ~/.ssh/github_actions
           eval $(ssh-agent)
