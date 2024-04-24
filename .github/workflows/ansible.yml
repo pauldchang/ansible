@@ -61,3 +61,4 @@ jobs:
         run: |
           # Adjust the playbook path and inventory file as needed
           ansible-playbook -i inventory ubuntu.yaml
+
