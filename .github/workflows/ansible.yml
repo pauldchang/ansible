@@ -35,27 +35,6 @@ jobs:
         run: |
           pip install ansible
 
-      - name: Add SSH key
-        run: |
-          mkdir -p ~/.ssh
-          # Replace 18.220.23.33 with the hostname of the machine you're SSH-ing into
-          ssh-keyscan ec2-18-220-23-33.us-east-2.compute.amazonaws.com >> ~/.ssh/known_hosts
-          # UBUNTU_SSH_KEY is the name of the repository secret
-          echo "${{ secrets.UBUNTU_SSH_KEY }}" > ~/.ssh/github_actions
-          chmod 600 ~/.ssh/github_actions
-          eval $(ssh-agent)
-          ssh-add ~/.ssh/github_actions
-        shell: bash
-        env:
-          pythonLocation: /opt/hostedtoolcache/Python/3.8.18/x64
-          LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.8.18/x64/lib
-  
-      - name: Install dependencies
-        run: yarn
-
-      - name: Build and deploy
-        run: |
-          # Add your build and deploy commands here
 
       - name: Run Ansible Playbook
         run: |
